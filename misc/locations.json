@@ -8,18 +8,13 @@
     "locations": [
       {
         "key":"entrada",
-        "name": "ENTRADA",
+        "name": "ROOM",
         "devices":["entrada-device"]
       },
       {
         "key":"auditorio",
-        "name": "AUDITORIO",
+        "name": "BUILDING",
         "devices": ["auditorio-device"]
-      },
-      {
-        "key":"patio",
-        "name": "PATIO DE COLUMNAS",
-        "devices": ["patio-device"]
       }
     ],
     "mqtt":"quasar/datum",
@@ -34,17 +29,17 @@
     "locations": [
       {
         "key":"entrada",
-        "name": "ENTRADA",
+        "name": "ROOM",
         "devices":["entrada-device"]
       },
       {
         "key":"auditorio",
-        "name": "AUDITORIO",
+        "name": "BUILDING",
         "devices": ["auditorio-device"]
       },
       {
         "key":"patio",
-        "name": "PATIO DE COLUMNAS",
+        "name": "STREET",
         "devices": ["patio-device"]
       }
     ],
@@ -60,17 +55,17 @@
     "locations": [
       {
         "key":"entrada",
-        "name": "ENTRADA",
+        "name": "ROOM",
         "devices":["entrada-device"]
       },
       {
         "key":"auditorio",
-        "name": "AUDITORIO",
+        "name": "BUILDING",
         "devices": ["auditorio-device"]
       },
       {
         "key":"patio",
-        "name": "PATIO DE COLUMNAS",
+        "name": "STREET",
         "devices": ["patio-device"]
       }
     ],
@@ -86,7 +81,7 @@
     "locations": [
       {
         "key":"auditorio",
-        "name": "AUDITORIO",
+        "name": "ROOM",
         "generic":["volume"]
       }
     ],
