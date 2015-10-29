@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name quasarFrontendApp
+ * @name bocFrontendApp
  * @description
- * # quasarFrontendApp
+ * # bocFrontendApp
  *
  * Main module of the application.
  */
 angular
-  .module('quasarFrontendApp', [
+  .module('bocFrontendApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

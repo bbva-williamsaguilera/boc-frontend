@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:dualGraph
+ * @name bocFrontendApp.directive:dualGraph
  * @description
  * # dualGraph
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('dualGraph', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {

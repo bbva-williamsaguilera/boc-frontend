@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name quasarFrontendApp.quasarApi
+ * @name bocFrontendApp.backendApi
  * @description
- * # quasarApi
- * Factory in the quasarFrontendApp.
+ * # backendApi
+ * Factory in the bocFrontendApp.
  */
-angular.module('quasarFrontendApp')
-	.factory('quasarApi', ['$http', function ($http) {
+angular.module('bocFrontendApp')
+	.factory('backendApi', ['$http', function ($http) {
 		
 		var host;
 		var local = false;

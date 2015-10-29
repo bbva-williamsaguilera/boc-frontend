@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:sparkline
+ * @name bocFrontendApp.directive:sparkline
  * @description
  * # sparkline
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('sparkline', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {

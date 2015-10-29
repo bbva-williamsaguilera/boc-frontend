@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:arcGauge
+ * @name bocFrontendApp.directive:arcGauge
  * @description
  * # arcGauge
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('arcGauge', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {
@@ -54,7 +54,7 @@ angular.module('quasarFrontendApp')
             totalWidth = svg[0][0].offsetWidth;
           }
           //console.log(totalWidth);
-          var totalHeight = 55;
+          var totalHeight = parseInt(attrs.height) || 55;
 
           //Establece el alto de grafica
           svg.attr('height', totalHeight);
@@ -84,7 +84,7 @@ angular.module('quasarFrontendApp')
             .attr('transform', centerTranslation());
 
           var arc = d3.svg.arc()
-            .innerRadius(totalHeight-18)
+            .innerRadius(totalHeight*0.65)
             .outerRadius(totalHeight-5)
             .startAngle(function(d,i) {
               var anchoSep = (Math.floor(180/totalSecciones));
@@ -126,17 +126,19 @@ angular.module('quasarFrontendApp')
             .attr('fill', '#FFF')
             .attr('x', (totalWidth/2)-4)
             .attr('y', totalHeight-2)
-            .style('font-size','20px')
+            .style('font-size',(totalHeight*0.35)+'px')
             .style('font-weight', 'bold')
             .attr('text-anchor', 'middle')
             .text(actualValue)
             .attr('id','text-actual');
 
+
+
           svg.append('text')
             .attr('fill', '#FFF')
-            .attr('x', ((totalWidth/2)-4)+(2 * 9))
+            .attr('x', ((totalWidth/2)-4) + (2 * (totalHeight*0.35*0.45)))
             .attr('y', totalHeight-7)
-            .style('font-size','13px')
+            .style('font-size',(totalHeight*0.21)+'px')
             .attr('text-anchor', 'middle')
             .text('%');
 

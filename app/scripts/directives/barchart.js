@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:barChart
+ * @name bocFrontendApp.directive:barChart
  * @description
  * # barChart
  */
-angular.module('quasarFrontendApp').directive('barChart', ['$window', '$timeout', 'd3Service', 
+angular.module('bocFrontendApp').directive('barChart', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {
       restrict: 'AE',

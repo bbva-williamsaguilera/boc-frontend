@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:electricGauge
+ * @name bocFrontendApp.directive:electricGauge
  * @description
  * # electricGauge
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('electricGauge', ['$window', '$timeout', '$interval', 'd3Service', 
   function($window, $timeout, $interval, d3Service) {
     return {

@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:waitClock
+ * @name bocFrontendApp.directive:waitClock
  * @description
  * # waitClock
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('waitClock', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {
@@ -20,17 +20,15 @@ angular.module('quasarFrontendApp')
         d3Service.d3().then(function(d3) {
 
           //Numero de separaciones del reloj
-          var totalSecciones = 60;
+          var totalSecciones = 100;
 
           //Atributo de valor actual
           var actualValue = scope.time;
-          if(actualValue.indexOf(':') < 0){
-            actualValue = ['0','0'];
-          }else{
-            actualValue = actualValue.split(':');
+          if(isNaN(parseInt(actualValue)) ){
+            actualValue = 0;
           }
 
-          var actualPercentage = (actualValue[0]*100)/totalSecciones;
+          var actualPercentage = (actualValue*100)/totalSecciones;
 
 
           var gaugeColor = ['#9BC741','#EDBC3E','#EDBC3E','#AB1D5D'];
@@ -86,8 +84,6 @@ angular.module('quasarFrontendApp')
             .attr('transform', centerTranslation());
 
           
-
-
           function deg2rad(deg) {
             return ((deg) * Math.PI / 180);
           }
@@ -96,6 +92,8 @@ angular.module('quasarFrontendApp')
           if(totalWidth > totalHeight){
             radius = totalHeight/2;
           }
+
+          
 
           var arc = d3.svg.arc()
             .innerRadius(radius-20)
@@ -108,6 +106,26 @@ angular.module('quasarFrontendApp')
               //console.log(deg);
               return deg2rad(deg);
             });
+
+          var sepArc = d3.svg.arc()
+            .innerRadius(radius-3)
+            .outerRadius(radius)
+            .startAngle(function(d,i) {
+              var anchoSep = (Math.floor(360/12));
+              return deg2rad(anchoSep*i);
+            })
+            .endAngle(function(d,i) {
+              var anchoSep = (Math.floor(360/12));
+
+              return deg2rad((anchoSep*i)+1);
+            });
+
+          svg.select('#clock-container')
+            .selectAll('path')
+            .data(new Array(12))
+            .enter().append('path')
+              .attr('fill', '#FFF')
+              .attr('d', sepArc);
 
           svg.select('#clock-container')
             .append('circle')
@@ -129,22 +147,22 @@ angular.module('quasarFrontendApp')
           svg.select('#clock-container')
             .append('text')
               .attr('id','min-placeholder')
-              .text('min')
+              .text('%')
               .attr('fill', '#FFF')
               .attr('y',-3)
-              .attr('x', 10)
-              .style('font-size','14px');
+              .attr('x', 23)
+              .style('font-size','24px');
 
           
 
-          svg.select('#clock-container')
+          /*svg.select('#clock-container')
             .append('text')
               .attr('id','seg-placeholder')
               .text('seg')
               .attr('fill', '#FFF')
               .attr('y',17)
               .attr('x', 10)
-              .style('font-size','14px');
+              .style('font-size','14px');*/
 
           svg.select('#clock-container')
             .append('g')
@@ -156,7 +174,7 @@ angular.module('quasarFrontendApp')
               .attr('d', 'M0,0H10L5,8L0,0')
               .attr('stroke', 'transparent')
               .attr('fill', '#AEAEAE')
-              .attr('transform','translate(-36,7)')
+              .attr('transform','translate(-36,-3)')
               .attr('x', -30);
 
           svg.select('#arrow-container')
@@ -164,7 +182,7 @@ angular.module('quasarFrontendApp')
               .attr('d', 'M0,0H10L5,8L0,0')
               .attr('stroke', 'transparent')
               .attr('fill', '#848484')
-              .attr('transform','translate(-36,-5)')
+              .attr('transform','translate(-36,-15)')
               .attr('x', -30);
 
           svg.select('#arrow-container')
@@ -172,10 +190,10 @@ angular.module('quasarFrontendApp')
               .attr('d', 'M0,0H10L5,8L0,0')
               .attr('stroke', 'transparent')
               .attr('fill', '#222221')
-              .attr('transform','translate(-36,-17)')
+              .attr('transform','translate(-36,-27)')
               .attr('x', -30);
 
-          svg.select('#clock-container')
+          /*svg.select('#clock-container')
               .append('text')
                 .attr('id','sec')
                 .text(actualValue[1])
@@ -183,16 +201,17 @@ angular.module('quasarFrontendApp')
                 .attr('y',17)
                 .attr('x', -20)
                 .style('font-size','22px')
-                .style('font-weight', 'bold');
+                .style('font-weight', 'bold');*/
 
             svg.select('#clock-container')
               .append('text')
                 .attr('id','min')
-                .text(actualValue[0])
+                .text(actualValue)
                 .attr('fill', '#FFF')
                 .attr('y',-3)
-                .attr('x', -20)
-                .style('font-size','22px')
+                .attr('x', -0)
+                .attr('text-anchor', 'middle')
+                .style('font-size','37px')
                 .style('font-weight', 'bold');
 
             svg.select('#clock-container')
@@ -204,6 +223,28 @@ angular.module('quasarFrontendApp')
                 .attr('x', -37)
                 .style('font-size','22px')
                 .style('font-weight', 'bold');
+
+          svg.select('#clock-container')
+              .append('text')
+                .attr('id','msg-placeholder')
+                .text('Great moment for:')
+                .attr('fill', '#FFF')
+                .attr('y',18)
+                .attr('x', 0)
+                .attr('text-anchor', 'middle')
+                .style('font-size','9px')
+                .style('font-weight', '');
+
+          svg.select('#clock-container')
+              .append('text')
+                .attr('id','message')
+                .text('')
+                .attr('fill', '#FFF')
+                .attr('y',30)
+                .attr('x', 0)
+                .attr('text-anchor', 'middle')
+                .style('font-size','9px')
+                .style('font-weight', '');
           
 
           //Actualiza la gráfica y los textos asociados
@@ -214,45 +255,58 @@ angular.module('quasarFrontendApp')
             }
             var isValid = true;
             var actualValue;
-            if(valorActual.indexOf(':') < 0){
+            if(isNaN(parseInt(valorActual))){
               isValid = false;
             }else{
-              actualValue = valorActual.split(':');
-              if(isNaN(actualValue[0]) || isNaN(actualValue[1]) || actualValue[0] <0 || actualValue[1] < 0){
-                isValid = false;
-              }
+              actualValue = valorActual;
             }
-
 
             if(isValid === true){
               
 
-              var actualPercentage = (actualValue[0]*100)/totalSecciones;
+              var actualPercentage = (actualValue*100)/totalSecciones;
               var currentColor = gaugeColor[Math.floor((actualPercentage*gaugeColor.length)/100)];
 
               var oldValueMin = parseInt(svg.select('#min').text());
-              var oldValueSeg = parseInt(svg.select('#sec').text());
+              //var oldValueSeg = parseInt(svg.select('#sec').text());
               var mov = 'down';
-              if(oldValueMin < actualValue[0]){
+              if(oldValueMin < actualValue){
                 mov = 'up';
-              }else{
-                if(oldValueMin === parseInt(actualValue[0]) && oldValueSeg < actualValue[1]){
-                  mov = 'up';
-                }
               }
 
-              svg.select('#min').text(actualValue[0]);
+              var message = '';
+
+              switch(true){
+                case actualValue<5:
+                  message = 'RELAX';
+                break;
+                case actualValue>=5 && actualValue<40:
+                
+                  message = 'MEETINGS';
+                break;
+                case actualValue>=40 && actualValue<70:
+                
+                  message = 'NETWORKING';
+                break;
+                case actualValue>=70 && actualValue<100:
+                  message = 'BACK TO WORK';
+                break;
+              }
+
+
+              svg.select('#min').text(actualValue);
               svg.select('#closed').text('');
-              svg.select('#min-placeholder').text('min');
-              svg.select('#sec').text(actualValue[1]);
-              svg.select('#seg-placeholder').text('seg');
+              svg.select('#min-placeholder').text('%');
+              svg.select('#message').text(message);
+              //svg.select('#sec').text(actualValue[1]);
+              //svg.select('#seg-placeholder').text('seg');
               svg.select('#arrow-container').style('display', 'block');
               if(svg.select('#arrow-container').attr('data-direction') !== mov){
                 svg.select('#arrow-container').attr('data-direction',mov);
                 if(mov === 'down'){
                   svg.select('#arrow-container').attr('transform', 'rotate(0 -30 0)');
                 }else{
-                  svg.select('#arrow-container').attr('transform', 'rotate(180 -30 0)');
+                  svg.select('#arrow-container').attr('transform', 'rotate(180 -30 -15)');
                 }
                 
               }
@@ -268,9 +322,9 @@ angular.module('quasarFrontendApp')
                 .attr('d', arc);
             }else{
               svg.select('#closed').text(negativeValue);
-              svg.select('#sec').text('');
+              //svg.select('#sec').text('');
               svg.select('#min').text('');
-              svg.select('#min-placeholder').text('');
+              //svg.select('#min-placeholder').text('');
               svg.select('#seg-placeholder').text('');
               svg.select('#arrow-container').style('display', 'none');
 

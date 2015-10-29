@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc directive
- * @name quasarFrontendApp.directive:dottedMatrix
+ * @name bocFrontendApp.directive:dottedMatrix
  * @description
  * # dottedMatrix
  */
-angular.module('quasarFrontendApp')
+angular.module('bocFrontendApp')
   .directive('dottedMatrix', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {
@@ -56,11 +56,11 @@ angular.module('quasarFrontendApp')
               showNumbers = false;
             }
           }
-
+          var elWidth = attrs.width || '100%';
           //Elemento SVG ajustado al 80% del contenedor
           var svg = d3.select(ele[0])
             .append('svg')
-            .style('width', '80%');
+            .style('width', elWidth);
 
           
           //Ancho y alto total de la gráfica
@@ -68,7 +68,7 @@ angular.module('quasarFrontendApp')
           if(totalWidth === undefined || totalWidth <=0){
             totalWidth = svg[0][0].offsetWidth;
           }
-          var totalHeight = 100;
+          var totalHeight = parseInt(attrs.height) || 100;
           var marginBottom = 20;
 
           //Establece el alto de grafica
